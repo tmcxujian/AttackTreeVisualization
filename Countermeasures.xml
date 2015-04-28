@@ -1,0 +1,41 @@
+<CounterMeasures>
+	<Access Type="Authentication">
+		<Authentication1.0>Use user ID and password to authenticate clinic staff</Authentication1.0>
+		<Authentication2.0>Use smart card to authenticate users</Authentication2.0>
+		<Authentication3.0>Implement a biometric technology like fingerprint for authentication</Authentication3.0>
+		<Authentication4.0>Implement challenges/personal questions to authenticate users</Authentication4.0>
+	</Access>
+	<Access Type="AccessControl">
+		<AccessControl1.0> Use automatic timed methods to terminate sessions within the system where appropriate for the use environment</AccessControl1.0>
+		<AccessControl2.0>Eliminate hard-coded passwords in medical devices</AccessControl2.0>
+		<AccessControl3.0>Eliminate guest account </AccessControl3.0>
+		<AccessControl4.0>Set the rule of IP address that is allowed that different range of IP could be used to do different things </AccessControl4.0>
+	</Access>
+	<Access Type="PhysicalExamination">
+		<PhysicalExamination1.0>Physical examination of devices to make sure medical devices are not damaged or broken</PhysicalExamination1.0>
+	</Access>
+	<Access Type="Firewall">
+		<Firewall1.0>Enhance and strict firewall policy in Router and database to prevent outsider break into our system</Firewall1.0>
+	</Access>
+	<Protection Type="UpdateSecurePatches">
+		<UpdateSecurityPatches1.0>Implement patch management system to update security patches once available</UpdateSecurityPatches1.0>
+		<UpdateSecurityPatches2.0>Restrict software and hardware security patches update to authenticated code</UpdateSecurityPatches2.0></Protection>
+	<Protection Type="Anti-virus">
+		<Anti-virus1.0> Install antivirus software to detect or eliminate malwares</Anti-virus1.0></Protection>
+	<Backup Type="Recovery">
+		<Recovery1.0>Install a redundant system in case of urgent need to switch</Recovery1.0>
+		<Recovery2.0>Back-up schedule is regular and timely, implement a back-up policy for a particular period of time</Recovery2.0>
+		<Recovery3.0>Database backup is physically secured (locked) and use cryptography to make it unreadable </Recovery3.0></Backup>
+	<Cryptography Type="Cryptography">
+		<Cryptography1.0>Implement a encryption/decryption algorithm to protect data transmitted in the whole system</Cryptography1.0></Cryptography>
+	<Cryptography Type="Integrity">
+		<Integrity1.0>Install integrity checkers to monitor any alternations done to database system</Integrity1.0></Cryptography>
+	<Detection Type="Auditing">
+		<Auditing1.0>Document and audit recent behavior of medical device, and database</Auditing1.0>
+		<Auditing2.0>Increase auditing frequency to get more information about user behavior</Auditing2.0>
+		<Auditing3.0>Auditing user rights that contain privileges accessing critical commands</Auditing3.0></Detection>
+	<Detection Type="IntrusionDetection">
+		<IntrusionDetection1.0>Install intrusion detection system to monitor abnormal traffic within network</IntrusionDetection1.0></Detection>
+	<Detection Type="PhysicalDetection">
+		<PhysicalDetection1.0>Secure devices and information physically include securing machines in locked rooms </PhysicalDetection1.0>
+		<physicalDetection2.0>Control physical access to areas around devices</physicalDetection2.0></Detection></CounterMeasures>
