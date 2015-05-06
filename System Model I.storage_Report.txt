@@ -1,0 +1,20 @@
+Node ----------------------------------------- Score
+Physically compromise pump_ctrl    0.3333333333333333
+Delay/Loose Cap_msr/Ox_msr    0.25
+Exploit wireless transmission <Capnograph/Ox, Coordinator>    0.1875
+Exploit wireless transmission <Pump, Coordinator>    0.25
+Delay pump measurement(VTBI)    0.3333333333333333
+Exploit wireless transmission <Display, Coordinator>    0.0625
+Exploit wireless transmission <pump, coordinator>    0.4375
+Incorrect pump measurement(VTBI)    0.3333333333333333
+Exploit wireless transmission <capnograph/ox, coordinator>    0.328125
+Incorrect measurement Cap_msr/Ox_msr    0.3333333333333333
+Exploit wireless transmission <display, coordinator>    0.0625
+Physically compromise EHR database    0.16666666666666666
+Incorrect EHR_query    0.1875
+
+Overall system's security is 0.0625
+(With 0 to be the most insecure, while 1 to be the most secure)
+
+The least secure node is Exploit wireless transmission <Display, Coordinator>
+The least secure node is Exploit wireless transmission <display, coordinator>

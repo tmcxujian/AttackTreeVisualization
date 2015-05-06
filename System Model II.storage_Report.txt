@@ -1,0 +1,26 @@
+Node ----------------------------------------- Score
+Increase flow(basal) rate    0.4375
+Decrease SPO2 sampling rate    0.4375
+Increase drug concentration    0.4375
+Increase bolus flow rate    0.4375
+Delay/Loose Cap_msr/Ox_msr    0.4375
+Delay measurement of Pump(VTBI)    0.1875
+Physical Compromise EHR database    0.375
+Exploit Wireless transmission <EHR, Cooridnator>    0.375
+Delay/Loose EHR_query    0.1875
+Exploit Wireless transmission <PC, Cooridnator>    0.25
+Incorrect pump_ctrl    0.3333333333333333
+Delay/Loose pump_ctrl    0.3333333333333333
+Exploit Wireless transmission <pump, cooridnator>    0.1875
+Incorrect measurement of pump(VTBI)    0.16666666666666666
+Exploit Wireless transmission <cap/ox, cooridnator>    0.375
+Incorrect Cap_msr/Ox_msr    0.3333333333333333
+Physical compromise EHR Database    0.375
+Incorrect EHR_query    0.125
+Exploit Wireless transmission <EHR, cooridnator>    0.3333333333333333
+Exploit Wireless transmission <pc, cooridnator>    0.3333333333333333
+
+Overall system's security is 0.125
+(With 0 to be the most insecure, while 1 to be the most secure)
+
+The least secure node is Incorrect EHR_query

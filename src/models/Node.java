@@ -30,15 +30,19 @@ public class Node implements Serializable{
 	//with color to determine which relation, details could refer to updateColor()
 	NodeType type;
 	
+	/**
+	 * Construct for Node class
+	 * @param name
+	 * @param type
+	 */
 	public Node(String name,NodeType type){
 		this.value = name;
 		this.childNodes = new ArrayList<Node>();
-		//this.relavantCounterMeasures = new HashSet<String>();
 		this.relavantCounterMeasures = new ArrayList<String>();
 		this.specificCounterMeasures = new HashSet<CounterMeasure>();
 		specificCounterMeasureMap = new HashMap<String, CounterMeasure>();
-		this.leaf = false;
 		this.type = type;
+		this.leaf = this.type == NodeType.LEAF ? true : false;
 	}
 	
 	public boolean isLeaf() {
@@ -69,10 +73,12 @@ public class Node implements Serializable{
 	
 	public void setType(NodeType nType){
 		this.type = nType;
+		this.leaf = this.type == NodeType.LEAF ? true : false;
 	}
 	
-	public String getAttackNodeName(){
+	public String getAttackNodeName(){		
 		return this.value;
+		
 	}
 	
 	public Collection<Node> getChildNodes(){

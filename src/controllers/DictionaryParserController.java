@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 /**
  * Reads information from the existing file.
  * Supporting Two different file format. Both csv and xml are doable.
+ * Specific funtions are in csvParser() and xmlParser()
  * @author xujian
  *
  */
@@ -34,6 +35,8 @@ public class DictionaryParserController {
 	String line;
 	List<CounterMeasure> counterMeasures;
 	Set<String> relevantType;
+	//These below five List is specific to your counterMeasure set
+	//Should be modified based on user own version of counterMeasure
 	List<CounterMeasure> accessType;
 	List<CounterMeasure> protectionType;
 	List<CounterMeasure> backupType;
@@ -42,7 +45,7 @@ public class DictionaryParserController {
 	
 	Map<String,String> countermeasures = new HashMap<String,String>();
 	BufferedReader br;
-	private Document dom;
+	//private Document dom;
 	
 	//Constructor for DictionaryParserController
 	public DictionaryParserController(String fileName) {
@@ -55,10 +58,11 @@ public class DictionaryParserController {
 
 	/**
 	 * CSV Parser for parsing csv file
-	 * @return
+	 * @return A list of counterMeasures
 	 */
 	public Map<String, String> csvParse() {
 		this.countermeasures.clear();
+		//read from the csv file to construct contermeasure and put into the list
 		try {
 			br = new BufferedReader(new FileReader(this.targetFile));
 			br.readLine();
@@ -87,6 +91,7 @@ public class DictionaryParserController {
 	
 	/**
 	 * XML Parser for parsing xml file
+	 * @return A list of counterMeasures
 	 */
 	public void xmlParser() {
 		String basicType = "";
@@ -99,7 +104,7 @@ public class DictionaryParserController {
 		this.backupType = new ArrayList<CounterMeasure>();
 		this.cryptohraphyType = new ArrayList<CounterMeasure>();
 		this.detectionType = new ArrayList<CounterMeasure>();
-		
+		//read from the xml file to construct contermeasure and put into the list
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -121,8 +126,6 @@ public class DictionaryParserController {
 						if(! this.relevantType.contains(generalType)){
 							this.relevantType.add(generalType);
 						}						
-						// System.out.println(node.getNodeName());
-						// System.out.println(node.getAttributes().getNamedItem("Type"));
 					}
 					for (int k = 0; k < userMeta.getLength(); k++) {
 						if (userMeta.item(k).getNodeName() != "#text") {
@@ -130,13 +133,11 @@ public class DictionaryParserController {
 									generalType, subType, userMeta.item(k)
 											.getTextContent());
 							this.counterMeasures.add(cm);
-							// System.out.println(userMeta.item(k).getNodeName()
-							// + " : " + userMeta.item(k).getTextContent());
 						}
 					}
-					// System.out.println();
 				}
 			}
+			//catch with all possible exceptions
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
@@ -147,7 +148,6 @@ public class DictionaryParserController {
 			e.printStackTrace();
 		}
 		processCounterMeasure();
-		//System.out.println(this.accessType.size());
 	}
 
 	/**

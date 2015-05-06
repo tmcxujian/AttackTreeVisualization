@@ -17,13 +17,14 @@ public class Constants {
     public static final int AREA_WIDTH = 1016;
     
     /**
-     * Default storage of memento
+     * Default storage of memento name
+     * You can name the storage file here
      */
     
     public static final String MEMENTO_STORAGE = "memento.storage";
        
     /**
-     * Default countermeasure file
+     * Default countermeasure file name
      */
     public static final String COUNTERMEASURE_STORAGE = "Countermeasures.xml";
     

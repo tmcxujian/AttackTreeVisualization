@@ -2,9 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.swing.JOptionPane;
-
 import models.MainState;
 import views.LineView;
 import views.MainView;
@@ -30,11 +28,10 @@ public class DeleteNodeController {
 		this.mainState = mainState;
 	}
 	 
-	//also can use
-	//String parentNode = JOptionPane.showInputDialog("Please Enter Parent Node's Name");
-	public void deleteNode(){
+	public void deleteNode(){		
 		this.nodeViews = this.mainView.getNodeViews();
 		String name = JOptionPane.showInputDialog("Please Enter Delete Node's Name");
+		//traverse all the node to find the one to delete
 		for(NodeView nodeView: nodeViews){
 			if(nodeView.getNode().getAttackNodeName().equals(name)){
 				Collection<LineView> lv = new ArrayList<LineView>();
@@ -43,7 +40,6 @@ public class DeleteNodeController {
 					if(lineView.getChildNodeView() == nodeView || 
 							lineView.getParentNodeView() == nodeView){
 						this.mainView.removeLineView(lineView);
-						//this.mainView.refresh();
 					}
 				}
 				this.mainState.getAttackNodes().remove(nodeView.getNode());

@@ -7,12 +7,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
@@ -34,9 +34,17 @@ public class RelevantCounterMeasureView extends AbstractView{
 	private JPanel panel;
 	private JButton btnSubmit;
 	private JTextArea txtArea;
+	private JLabel label;
 	private ArrayList<JCheckBox> boxes;
 	
-	
+	/**
+	 * Construct for RelevantConterMeasureView
+	 * @param position
+	 * @param width
+	 * @param height
+	 * @param mainView
+	 * @param mainState
+	 */
 	public RelevantCounterMeasureView(Position position, int width, int height, final MainView mainView, final MainState mainState){
 		super(position,width,height);
 		this.mainState = mainState;
@@ -60,18 +68,25 @@ public class RelevantCounterMeasureView extends AbstractView{
         }
         panel.add(jBoxPanel,BorderLayout.CENTER);
         
+        JPanel p = new JPanel();
+        label = new JLabel("node");
+        label.setLocation(position.getX(), position.getY());
+        p.add(label);
+        
         txtArea = new JTextArea();
-        txtArea.setBounds(22, 11, 225, 60);
+        txtArea.setLocation(position.getX() + 5, position.getY());
         txtArea.setLineWrap(true);
-        panel.add(txtArea,BorderLayout.PAGE_START);
+        p.add(txtArea);
+        
+        panel.add(p,BorderLayout.PAGE_START);
         
         JPanel btnPanel = new JPanel();
-        btnSubmit = new JButton("Submit");
+        btnSubmit = new JButton("Set Relavant CounterMeasure");
         btnPanel.add(btnSubmit);
         panel.add(btnPanel,BorderLayout.PAGE_END);
         
         btnSubmit.addActionListener(new ActionListener() {
-			
+			//once submit, reset the node relevant countermeasure type
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -81,25 +96,15 @@ public class RelevantCounterMeasureView extends AbstractView{
 				Set<CounterMeasure> set = new HashSet<CounterMeasure>(temp.getSpecificCounterMeasures());
 				for(JCheckBox box : boxes){
 					if(box.isSelected()){
-						//System.out.println(box.getLabel());
-						str.add(box.getText());
-						//temp.addRelevantCounterMeasures(box.getText());						
+						str.add(box.getText());					
 					}
-					else{
-						
+					else{					
 						for(Map.Entry<String, CounterMeasure> entry : map.entrySet()){
 							CounterMeasure cc = entry.getValue();
 							if(cc.getGeneralType().equals(box.getText())){
 								temp.removeSpecificCounterMeasures(cc);
 							}
 						}
-						/**
-						for(CounterMeasure cm: set){
-							if(cm.getGeneralType().equals(box.getText())){
-								temp.removeSpecificCounterMeasures(cm);
-							}
-						}
-						**/
 					}
 				}
 				temp.addRelevantCounterMeasures(str);

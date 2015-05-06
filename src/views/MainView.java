@@ -40,7 +40,6 @@ public class MainView extends JFrame implements Serializable{
 	private ResultView resultView;
 	private RelevantCounterMeasureView relevantCounterMeasureView;
 	private CounterMeasureView counterMeasureView;
-	//List<CounterMeasureView> counterMeasureViews;
 	public Container contentPane;
 	private JPanel panel;
 	private JButton btnCreate;
@@ -57,10 +56,14 @@ public class MainView extends JFrame implements Serializable{
 	ButtonController buttonController;
 	MouseInputController mouseInputController;
 	
+	/**
+	 * Construct for MainView
+	 * @param mainState
+	 * @param loadMementoController
+	 */
 	public MainView(MainState mainState, LoadMementoController loadMementoController){
 		this.mainState = mainState;
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //setBounds(100, 100, 1000, 685);
 		setBounds(100, 100, 1550, 685);
         contentPane = getContentPane();
         contentPane.setLayout(null);
@@ -74,7 +77,7 @@ public class MainView extends JFrame implements Serializable{
         
         this.nodeViews = new ArrayList<NodeView>();
         this.lineViews = new ArrayList<LineView>();
-        
+        //if memento is null, construct a new mainView
 		if (loadMementoController == null) {
 			Random random = new Random();
 			for (Node a : mainState.getAttackNodes()) {
@@ -85,6 +88,7 @@ public class MainView extends JFrame implements Serializable{
 				panel.add(view.label);
 			}
 		}
+		//if not null, then construct a mainView form that memento file
 		else{
 			loadMementoController.loadState(this, mainState);
 		}
@@ -120,15 +124,14 @@ public class MainView extends JFrame implements Serializable{
         exploreArea = new ExploreView(this,mainState);
         JPanel explorePanel = exploreArea.contentPane;
         explorePanel.setBorder(new LineBorder(Color.BLACK));
-        //explorePanel.setBounds(716, 310, 284, 353);
         explorePanel.setBounds(1016, 310, 284, 353);
         contentPane.add(explorePanel);
         explorePanel.setLayout(null);
         
-        resultView = new ResultView(new Position(1016, 0), 284, 155, this, this.mainState);
+        resultView = new ResultView(new Position(1016, 0), 284, 100, this, this.mainState);
         contentPane.add(resultView.getPanel());
         
-        relevantCounterMeasureView = new RelevantCounterMeasureView(new Position(1016, 152), 284, 160, this, this.mainState);
+        relevantCounterMeasureView = new RelevantCounterMeasureView(new Position(1016, 100), 284, 210, this, this.mainState);
         contentPane.add(relevantCounterMeasureView.getPanel());
         
         counterMeasureView = new CounterMeasureView(this, mainState); 
@@ -142,8 +145,7 @@ public class MainView extends JFrame implements Serializable{
         this.addMouseInputController(mouseInputController);
         this.refresh();
         
-        //update();
-        //System.out.println(this.lineViews.size());
+        //update();     
 	}
 	
 	public MainView(MainState mainState){
@@ -169,14 +171,12 @@ public class MainView extends JFrame implements Serializable{
             NodeView view = new NodeView(a, new Position(x, y));
             nodeViews.add(view);
             panel.add(view.label);
-            //contentPane.add(view.label);
         }
         contentPane.add(panel);
         
         btnCreate = new JButton("Create");
         btnCreate.setBounds(0, 0, 70, 20);
         btnCreate.setEnabled(true);
-        //contentPane.add(btnCreate);
         panel.add(btnCreate);
         
         btnDelete = new JButton("Delete");
@@ -199,6 +199,7 @@ public class MainView extends JFrame implements Serializable{
         this.addMouseInputController(mouseInputController);
 	}
 	
+	//This is just helper function, for testing purpose
 	public void update(){
 		for(NodeView nv: this.nodeViews){
 			if(nv.getNode().getRelavantCounterMeasures() != null &&
@@ -250,11 +251,13 @@ public class MainView extends JFrame implements Serializable{
 		return this.mouseInputController;
 	}
 	
+	//add node label into panel, so that this node could be shown in the window
 	public void addLabelOf(NodeView view){
 		this.panel.add(view.label);
 		refresh();
 	}
 	
+	//remove node label from panel, so that this node could be remove from the window
 	public void removeLabelOf(NodeView view){
 		this.panel.remove(view.label);
 		refresh();
@@ -264,10 +267,12 @@ public class MainView extends JFrame implements Serializable{
 		return this.nodeViews;
 	}
 	
+	//update the nodeView by adding a new one
 	public void addNodeView(NodeView nodeView){
 		this.nodeViews.add(nodeView);
 	}
-	
+
+	//update the nodeView by removing an existing one
 	public void removeNodeView(NodeView nodeView){
 		this.nodeViews.remove(nodeView);
 	}
@@ -290,6 +295,7 @@ public class MainView extends JFrame implements Serializable{
 		refresh();
 	}
 	
+	//refresh the mainView to re-render
 	public void refresh(){
 		revalidate();
 		repaint();
@@ -300,12 +306,9 @@ public class MainView extends JFrame implements Serializable{
 		this.panel.addMouseMotionListener(controller);
 	}
 	
+	//draw all the line pairs 
 	@Override
 	public void paint(Graphics g){
-		/*if(!(this.parentNodeView != null && this.childNodeView != null)){
-			super.paint(g);
-			g.drawLine(0,0,0,0);
-		}*/
 		if(this.lineViews == null || this.lineViews.size() == 0){
 			super.paint(g);
 			g.drawLine(0,0,0,0);
@@ -339,13 +342,52 @@ public class MainView extends JFrame implements Serializable{
 	
 	public void restore(Memento memento){
 		this.nodeViews = new ArrayList<NodeView>();
-		//this.lineViews = new ArrayList<LineView>();
 		for(NodeView nodeView : memento.getNodeViews()){
 			nodeViews.add(nodeView);
 		}
-		//for(LineView lineView : memento.getLineViews()){
-			//lineViews.add(lineView);
-		//}
 		this.refresh();
 	}
+	
+	//set node color
+	public void setNodeColor(String s){
+		for(NodeView nv : this.nodeViews){
+			if(nv.getNode().getAttackNodeName().equals(s)){
+				nv.updateColor(Color.CYAN);
+				break;
+			}
+		}
+		refresh();
+	}
+	
+	//reset node color to the original one
+	public void resetColor(){
+		for(NodeView nv : this.nodeViews){
+			if(nv.getNode().getType().equals(NodeType.LEAF)){
+				nv.updateColor(Color.LIGHT_GRAY);
+			}
+		}
+		refresh();
+	}
+	
+	//set the node font to inform user this node is least insecure
+	public void setFont(String s){
+		for(NodeView nv : this.nodeViews){
+			if(nv.getNode().getAttackNodeName().equals(s)){
+				nv.setFont();
+				break;
+			}
+		}
+		refresh();
+	}
+	
+	//reset the node font
+	public void resetFont(){
+		for(NodeView nv : this.nodeViews){
+			if(nv.getNode().getType().equals(NodeType.LEAF)){
+				nv.resetFont();
+			}
+		}
+		refresh();
+	}
+	
 }

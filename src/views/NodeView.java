@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,35 +26,25 @@ public class NodeView extends AbstractNodeView implements Serializable {
 	private static final long serialVersionUID = -3012251334321774805L;
 	public JLabel label;
 	Collection<LineView> lineViews;
-
-	/*public NodeView(Node node, Position position) {
-		super(node, position);
-		furthestRight = node.getAttackNodeName().length() * 10;
-		lineViews = new ArrayList<LineView>();
-		setSize(node.getAttackNodeName().length() * 10, 20);
-		//setSize(50, 20);
-		label = new JLabel(node.getAttackNodeName(), SwingConstants.CENTER);
-		updateView();	
-		
-		label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		label.setBackground(Color.LIGHT_GRAY);
-		label.setOpaque(true);		
-	}*/
+	final private Font font;
 	
+	/**
+	 * Construct for nodeView class
+	 * @param node
+	 * @param position
+	 */
 	public NodeView(Node node, Position position) {
 		super(node, position);
 		furthestRight = node.getAttackNodeName().length() * 8;
 		lineViews = new ArrayList<LineView>();
-		//int i = node.getAttackNodeName().length() / 20;
 		setSize(node.getAttackNodeName().length() * 8, 20);
 		//setSize(node.getAttackNodeName().length() * 10, 20);
-		//setSize(30, 20 * node.getAttackNodeName().length() / 30);
 		label = new JLabel(node.getAttackNodeName(), SwingConstants.CENTER);
 		updateView();	
 		updateColor();
 		label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		//label.setBackground(Color.LIGHT_GRAY);
-		label.setOpaque(true);		
+		label.setOpaque(true);
+		this.font = label.getFont();
 	}
 
 	public Node getNode() {
@@ -68,6 +59,8 @@ public class NodeView extends AbstractNodeView implements Serializable {
 		label.setBounds(this.position.getX(), this.position.getY(), width, height);
 	}
 	
+	//update node color based on their role
+	//leaf/Intermedia node with different logic relation
 	public void updateColor(){
 		if(node.getType() == NodeType.AND){
 			label.setBackground(Color.RED);
@@ -81,6 +74,10 @@ public class NodeView extends AbstractNodeView implements Serializable {
 		else{
 			label.setBackground(Color.LIGHT_GRAY);
 		}
+	}
+	
+	public void updateColor(Color c){
+		label.setBackground(c);
 	}
 
 	public boolean moveTo(Position pos) {
@@ -106,7 +103,15 @@ public class NodeView extends AbstractNodeView implements Serializable {
 		return isClicked;
 	}*/
 
-	public void connect(){
-		
+	//set font for node
+	public void setFont(){
+		Font fon = this.label.getFont();
+		Font boldFont = new Font(fon.getFontName(), Font.BOLD, fon.getSize());
+		this.label.setFont(boldFont);
+	}
+	
+	//reset font 
+	public void resetFont(){
+		this.label.setFont(this.font);
 	}
 }

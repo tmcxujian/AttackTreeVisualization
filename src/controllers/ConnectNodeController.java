@@ -2,6 +2,7 @@ package controllers;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import models.Line;
 import models.MainState;
@@ -36,13 +37,14 @@ public class ConnectNodeController extends JFrame{
 	/**
 	 * Connect Two Node based on their ID (String Name)
 	 */
-	public void connect(){
+	public void connect(){	
 		NodeView parentNodeView = null;
 		NodeView childNodeView = null;
 		String parentNode = JOptionPane.showInputDialog("Please Enter Parent Node's Name");
 		String childNode = JOptionPane.showInputDialog("Please Enter Child Node's Name");
 		int count = 0;
 		for(NodeView nodeView : this.mainView.getNodeViews()){
+			//traverse the whole node in the mainView to find those two nodes
 			if(nodeView.getNode().getAttackNodeName().equals(parentNode)){
 				count++;
 				parentNodeView = nodeView;
@@ -53,6 +55,7 @@ public class ConnectNodeController extends JFrame{
 				childNodeView = nodeView;
 				this.mainView.setChildNodeView(nodeView);
 			}
+			//have already found thaat pair
 			else if(count == 2){
 				break;
 			}
@@ -76,6 +79,7 @@ public class ConnectNodeController extends JFrame{
 		this.mainView.refresh();
 	}
 	
+	//add that lineView to mainView 
 	public void connect(LineView lineView){
 		this.mainView.addLineView(lineView);
 		this.mainView.repaint();

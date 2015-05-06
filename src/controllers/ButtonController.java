@@ -34,16 +34,22 @@ public class ButtonController implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e){
+		//clear other font features
+		this.mainView.resetFont();
 		JButton clickButton = (JButton) e.getSource();
+		//create button function
 		if(clickButton.equals(mainView.getCreateButton())){	
 			new CreateNodeController(this.mainView, this.mainState).createNode();
 		}
+		//delete button function
 		if(clickButton.equals(mainView.getDeleteButton())){
 			new DeleteNodeController(this.mainView, this.mainState).deleteNode();
 		}
+		//connect button function
 		if(clickButton.equals(mainView.getConnectButton())){
 			new ConnectNodeController(this.mainView, this.mainState).connect();;
 		}
+		//calculation button function
 		if(clickButton.equals(mainView.getCalculateButton())){
 			new CalculationController(this.mainView,this.mainState).calculateSecrityCondition();;
 		}

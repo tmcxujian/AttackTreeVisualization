@@ -21,6 +21,7 @@ public class Memento implements Serializable{
 	private Collection<NodeView> nodeViews = new ArrayList<NodeView>();
 	private Collection<LineView> lineViews = new ArrayList<LineView>();
 	
+	//go through current list of node and line and store those information
 	public Memento(Collection<NodeView> nodeView, Collection<LineView> lineView){
 		for(NodeView nv: nodeView){
 			this.nodeViews.add(nv);

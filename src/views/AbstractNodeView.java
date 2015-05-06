@@ -16,6 +16,11 @@ public abstract class AbstractNodeView extends AbstractView implements Serializa
     int furthestRight;
     int furthestLeft;
     
+    /**
+     * Construct for AbstractNodeView
+     * @param node
+     * @param position
+     */
     public AbstractNodeView(Node node, Position position){
     		super(position);
         this.node = node;

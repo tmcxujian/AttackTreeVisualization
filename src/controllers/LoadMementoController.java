@@ -38,6 +38,8 @@ public class LoadMementoController implements Serializable{
 	 */
 	public void loadState(MainView mainView, MainState mainState){
 		Collection<Node> nodes = new ArrayList<Node>();
+		//construct the previous state's nodeView/node information
+		//Use those information to reconstruct last state's mainView/mainState
 		for(NodeView nodeView : memento.getNodeViews()){
 			Node node = nodeView.getNode();
 			nodes.add(node);

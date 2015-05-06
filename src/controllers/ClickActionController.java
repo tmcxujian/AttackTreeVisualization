@@ -31,14 +31,14 @@ public class ClickActionController implements ActionListener{
 	
 	/**
 	 * Make Sure when this contermeasure is not duplicated, if yes, remove it. 
-	 * if no, then add it int node class
+	 * if no, then add it into node class
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(this.nodeView.getNode().getSpecificCounterMeasureMap() != null
 			 && this.nodeView.getNode().getSpecificCounterMeasureMap().size() > 0
-			 && this.nodeView.getNode().getSpecificCounterMeasureMap().containsKey(this.counterMeasure.getValue())){
-			System.out.println(this.counterMeasure.getValue());
+			 && this.nodeView.getNode().getSpecificCounterMeasureMap().
+			 containsKey(this.counterMeasure.getValue())){
 			this.nodeView.getNode().removeSpecificCounterMeasures(this.counterMeasure);
 		}
 		else{

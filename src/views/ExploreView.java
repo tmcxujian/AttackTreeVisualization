@@ -1,6 +1,8 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -8,9 +10,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -42,16 +49,19 @@ public class ExploreView extends JFrame implements Serializable{
 	private MainState mainState;
 	private JTextField textField;
 	private JTextArea textArea;
-    private JComboBox<String> comboBox;
-    private String input;
     private JTable table;
     private JScrollPane jScrollPane;
-    private JButton btnNewButton;
     private Object[][] cellData;
+    private JLabel label;
     
     Collection<CounterMeasure> counterMeasures;
     private DictionaryParserController dictionaryParserController;
     
+    /**
+     * Construct for ExploreView
+     * @param mainView
+     * @param mainState
+     */
     public ExploreView(MainView mainView, MainState mainState){
     		this.mainView = mainView;
     		this.mainState = mainState;
@@ -64,23 +74,20 @@ public class ExploreView extends JFrame implements Serializable{
         contentPane.setLayout(null);
         contentPane.setBounds(0, 0, 284, 253);
         
+        label = new JLabel("All Detailed CounterMeasure");
+        label.setBounds(22, 0, 284, 20);
+        contentPane.add(label,BorderLayout.PAGE_START);
+        
         textArea = new JTextArea(50,3);
-        textArea.setBounds(22, 11, 225, 60);
+        textArea.setBounds(22, 21, 225, 50);
         contentPane.add(textArea);
         textArea.setColumns(10);
         textArea.setLineWrap(true);
 
-        /*comboBox = new JComboBox<String>();
-        comboBox.setBounds(20, 44, 232, 21);
-        contentPane.add(comboBox);
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(
-                new String[]{null}));*/
-
-        table = getTable();
-
+        //Initialize the JTable
+        table = getTable();       
         table.setBorder(new LineBorder(Color.BLACK));
         table.setBackground(Color.LIGHT_GRAY);
-        //table.setBounds(44, 172, 346, 67);
         table.setBounds(14, 172, 376, 67);
         table.setCellSelectionEnabled(true);
         table.setRowSelectionAllowed(true);
@@ -96,7 +103,7 @@ public class ExploreView extends JFrame implements Serializable{
         jScrollPane.setBounds(20, 75, 233, 268);
         contentPane.add(jScrollPane);
         jScrollPane.setViewportView(table);
-        
+        //Add listener for every column
         table.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
@@ -111,8 +118,8 @@ public class ExploreView extends JFrame implements Serializable{
         });
     }
     
+    //Real JTable Initialization 
     private JTable getTable() {
-        //rowId = new long[1000];
     		this.counterMeasures = new ArrayList<CounterMeasure>();
     		this.dictionaryParserController = new DictionaryParserController(Constants.COUNTERMEASURE_STORAGE);
         dictionaryParserController.xmlParser();
@@ -128,7 +135,7 @@ public class ExploreView extends JFrame implements Serializable{
             cellData[i][3] = cm.getValue();
             i++;
         }
-
+       
         DefaultTableModel model = new DefaultTableModel(cellData, columnNames) {
             /**
              *
@@ -139,6 +146,7 @@ public class ExploreView extends JFrame implements Serializable{
             public boolean isCellEditable(int row, int col) {
                 return false;
             }
+
         };
         return new JTable(model) {
             /**
@@ -158,17 +166,18 @@ public class ExploreView extends JFrame implements Serializable{
     		this.refresh();
     }
     
+    //refresh all the component
     public void refresh() {
         revalidate();
         repaint();
         table.updateUI();
-    }
-    
-    public void updateTable(){
-    	
-    }
+    }   
     
     public DictionaryParserController getDictionaryParserController(){
     		return this.dictionaryParserController;
+    }
+    
+    public JTable getJTable(){
+    		return this.table;
     }
 }

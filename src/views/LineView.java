@@ -1,6 +1,5 @@
 package views;
 
-
 import java.awt.Graphics;
 import java.io.Serializable;
 
@@ -21,6 +20,11 @@ public class LineView extends JPanel implements Serializable{
 	private NodeView childNodeView;
 	long id;
 	
+	/**
+	 * Construct for lineView
+	 * @param superNodeView
+	 * @param childNodeView
+	 */
 	public LineView(NodeView superNodeView, NodeView childNodeView){
 		this.childNodeView = childNodeView;
 		this.parentNodeView = superNodeView;
@@ -39,6 +43,7 @@ public class LineView extends JPanel implements Serializable{
 		return this.childNodeView;
 	}
 	
+	//Change default paint function, using my own implementation
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);

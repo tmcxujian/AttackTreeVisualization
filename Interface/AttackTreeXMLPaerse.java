@@ -8,7 +8,9 @@ import models.MainState;
 import models.Node;
 
 /**
- * 
+ * This is an instruction interface:
+ * Showing after generating attack tree from xml file
+ * How to associate my application to quantify it
  * @author xujian
  *
  */

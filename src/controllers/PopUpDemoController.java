@@ -22,15 +22,11 @@ public class PopUpDemoController extends JPopupMenu{
 	 * 
 	 */
 	private static final long serialVersionUID = 3523363310996121025L;
-	//JMenu oneMenu;
-	//JMenu twoMenu;
 	List<JMenu> menus;
 	List<JMenuItem> menuItems;
 	List<CounterMeasure> counterMeasures;
 	Set<String> stringOfSubType;
 	Set<String> stringOfValue;
-    //JMenuItem oneItem;
-    //JMenuItem twoItem;
     NodeView nodeView;
     CounterMeasure strCounterMeasure;
     MainView mainView;
@@ -53,6 +49,7 @@ public class PopUpDemoController extends JPopupMenu{
  	    if(ss == null){
  	    		return;
  	    }
+ 	    //traverse the relevant countermeasure and construct the corresponding menu
     		for(String s : ss){
     			stringOfSubType.clear();
     			JMenu temp = new JMenu(s);
@@ -73,23 +70,7 @@ public class PopUpDemoController extends JPopupMenu{
     					}   					
     					temp.add(jMenu);
     				}
-    			}
-    			/*for(CounterMeasure cm : this.counterMeasures){
-    				if(cm.getGeneralType().equals(s)){
-    					JMenuItem jMenuItem = new JMenuItem(cm.getValue());
-    					jMenuItem.addActionListener(new ActionListener() {
-							
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								// TODO Auto-generated method stub
-								if(e.getActionCommand().equals("Use user ID and password to authenticate clinic staff")){
-									System.out.println("Hello");
-								}
-							}
-						});
-    					temp.add(jMenuItem);
-    				}
-    			}*/	
+    			}	
     			menus.add(temp);
     			add(temp);
     		}	        

@@ -13,7 +13,15 @@ public class Line {
 	
 	private Node parentNode;
 	private Node childNode;
-	
+	/**
+	 * Construct for line class
+	 * @param x1
+	 * @param x2
+	 * @param y1
+	 * @param y2
+	 * @param pNode
+	 * @param cNode
+	 */
 	public Line(int x1, int x2, int y1, int y2, Node pNode, Node cNode){
 		this.x1 = x1;
 		this.x2 = x2;

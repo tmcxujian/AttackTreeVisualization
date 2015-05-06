@@ -18,6 +18,13 @@ public class CounterMeasure implements Serializable{
 	private String subType;
 	private String value;
 	
+	/**
+	 * Construct for CounterMeasure Class, contains following part
+	 * @param basicType
+	 * @param generalType
+	 * @param type
+	 * @param value
+	 */
 	public CounterMeasure(String basicType,String generalType, String type, String value){
 		this.basicType = basicType;
 		this.generalType = generalType;
